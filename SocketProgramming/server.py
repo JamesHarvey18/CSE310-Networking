@@ -43,7 +43,7 @@ while True:  # Leaves server constantly running
     client, ca = serverSocket.accept()  # accepts new connection
 
     while True:  # secondary loop to prevent server from getting hung up on accepting a new connection
-        request = client.recv(1024)  # Receive the message from the client
+        request = client.recv(1024).decode() # Receive the message from the client
 
         args = request.split()  # splits message into a list
         req = args[0]
@@ -58,29 +58,29 @@ while True:  # Leaves server constantly running
             if len(args) == 2:
                 get(key)
             else:
-                client.send("HTTP /1.1 400 BAD REQUEST")
+                client.send("HTTP /1.1 400 BAD REQUEST".encode("utf-8"))
         elif req == 'PUT':
             if len(args) == 3:
                 put(key, value)
             else:
-                client.send("HTTP /1.1 400 BAD REQUEST")
+                client.send("HTTP /1.1 400 BAD REQUEST".encode("utf-8"))
         elif req == 'DELETE':
             if len(args) == 2:
                 delete(key)
             else:
-                client.send("HTTP /1.1 400 BAD REQUEST")
+                client.send("HTTP /1.1 400 BAD REQUEST".encode("utf-8"))
         elif req == 'CLEAR':
             if len(args) == 1:
                 clear()
             else:
-                client.send("HTTP /1.1 400 BAD REQUEST")
+                client.send("HTTP /1.1 400 BAD REQUEST".encode("utf-8"))
         elif req == 'QUIT':
             if len(args) == 1:
                 quit()
                 break
             else:
-                client.send("HTTP /1.1 400 BAD REQUEST")
+                client.send("HTTP /1.1 400 BAD REQUEST".encode("utf-8"))
         else:  # if no valid request is given, unsupported code is sent in response
-            client.send("HTTP /1.1 220 UNSUPPORTED")
+            client.send("HTTP /1.1 220 UNSUPPORTED".encode("utf-8"))
 
         args = []  # resets list of arguments
