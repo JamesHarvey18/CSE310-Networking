@@ -22,15 +22,15 @@ def BellmanFord():
                 current_paths[dst] = current_paths[src] + weight
                 parent[dst] = src
 
-    print "Minimum Cost from X to Y: ", current_paths[7]
+    print("Minimum Cost from X to Y: ", current_paths[7])
 
 
 def shortest_path(vertex):
     if parent[vertex] == 0:
-        print "x->", vertex_translation[vertex],
+        print("x->", vertex_translation[vertex])
         return
     shortest_path(parent[vertex])
-    print "->", vertex_translation[vertex],
+    print("->", vertex_translation[vertex])
 
 
 BellmanFord()
